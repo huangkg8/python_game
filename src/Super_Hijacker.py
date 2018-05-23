@@ -4,7 +4,7 @@ from pygame.sprite import Group
 from settings import Settings
 import game_function as gf
 from hero import Hero
-from enermies import *
+from enermy import *
 from bullet import *
 from background import Background
 
@@ -18,7 +18,7 @@ def run_game():
 	hero=Hero(screen,sett)
 
 	#创建存储敌机的编组
-	enermies=Group()
+	enemies=Group()
 	
 	#创建存储子弹的编组
 	#bullets[0],bullets[1],bullets[2]分别为存储hero发射的普通子弹、多核弹、导弹的编组，
@@ -30,11 +30,11 @@ def run_game():
 	
 	#游戏主循环
 	while True:
-		gf.handle_events(sett,screen,hero,enermies,bullets)
+		gf.handle_events(sett,screen,hero,enemies,bullets)
 		hero.update()
-		gf.update_bullets(bullets,hero,enermies)
-		gf.update_enermies(enermies,hero)
-		gf.update_screen(sett,screen,hero,enermies,bullets)
+		gf.update_bullets(bullets,hero,enemies)
+		gf.update_enermies(enemies,hero)
+		gf.update_screen(sett,screen,hero,enemies,bullets)
 
 
 
