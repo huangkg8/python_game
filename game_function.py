@@ -1,3 +1,7 @@
+"""
+为简化主函数文件而提供的各种函数
+"""
+
 import sys
 import pygame as pg
 
