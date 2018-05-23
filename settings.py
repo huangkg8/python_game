@@ -1,3 +1,7 @@
+"""
+游戏中的各种设置
+"""
+
 import pygame as pg
 
 class Settings():
