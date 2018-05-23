@@ -64,10 +64,7 @@ class Bullet2(Sprite):
 
 	def update(self):
 		"""
-		hero_pos是记录目标位置的元组（x,y）
-		如果byhero==False，则根据hero_pos来导航
-		如果byhero==True,则根据(self.target.rect.centerx,self.target.rect.centery)来导航		
-
+		Use target_pos to decide direction		
 		"""
 		target_pos=(self.target.rect.centerx,self.target.rect.centery)
 
