@@ -41,6 +41,7 @@ class Settings():
 		self.multiPlaneTimeLimit=90
 		self.missilePlaneTimeLimit=50
 		self.tankTimeLimit=120
+		
 		#other settings
 		self.acc=0.1 #重力加速度
 		self.groundy=int(self.screen_height*7/8) #地面的y坐标
