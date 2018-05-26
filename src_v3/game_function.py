@@ -34,9 +34,10 @@ def handle_keydown(sett,screen,event,hero,bullets):
 		elif event.key == pg.K_LEFT:
 			hero.moving_left = True	
 		elif event.key==pg.K_UP:
-			hero.jumping=True
+			hero.jumporfall=True
+			hero.jumpfallspeed=hero.jump_init_speed
 		elif event.key==K_DOWN:
-			hero.moveing_up=True  #攀爬
+			hero.moving_up=True  #攀爬
 
 		#瞄准，开火
 		elif event.key==K_d:
@@ -88,13 +89,19 @@ def handle_keydown(sett,screen,event,hero,bullets):
 				bullet2=Bullet2(sett,screen,hero.plane,hero.missile_target,True)
 				bullets[2].add(bullet2)	 
 			elif str(type(hero.plane))=="<class '__main__.Tank'>":
-				pass
+				bullet0=Bullet0(sett, screen, hero.plane, hero.shoot_dir, True)
+				bullets[0].add(bullet0)
 
 		elif event.key==K_g:
-			#离开敌机
+			#以跳跃方式离开敌机
 			hero.plane=None
-			hero.jumping=True
-
+			hero.jumporfall=True
+			hero.jumpfallspeed=hero.jump_init_speed
+		elif event.key==K_b:
+			#以下落方式离开敌机
+			hero.plane=None
+			hero.jumporfall=True
+			hero.jumpfallspeed=0
 
 def handle_keyup(event,hero):
 	#没有开敌机
@@ -162,7 +169,8 @@ def update_enemies(enemies,hero):
 		enemy_crash=pg.sprite.spritecollideany(hero.plane,enemies)
 		if enemy_crash:
 			hero.plane=None
-			hero.falling=True
+			hero.jumporfall=True
+			hero.jumpfallspeed=0
 			hero.life-=1
 			if hero.life<=0:
 				print('Game over!')
