@@ -28,8 +28,12 @@ class Bullet(Sprite):
 		
 		#根据shooter（同样有属性rect）位置初始化子弹位置
 		
-		#存储用小数表示的子弹位置
 		
+		#用self.x, self.y存储用小数表示的子弹位置
+		self.x=float(self.rect.centerx)
+		self.y=float(self.rect.centery)
+		
+
 	def drawme(self):
 		pass
 
