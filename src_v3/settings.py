@@ -25,7 +25,7 @@ class Settings():
 		#hero设置
 		self.hero_life=5
 		self.hero_speed=3
-
+		self.jump_init_speed=-7 #向上为负方向
 
 		#enemies设置
 		self.ordinPlaneLife=2
@@ -42,5 +42,6 @@ class Settings():
 		self.missilePlaneTimeLimit=50
 		self.tankTimeLimit=120
 		#other settings
-	
+		self.acc=0.1 #重力加速度
+		self.groundy=int(self.screen_height*7/8) #地面的y坐标
 	
