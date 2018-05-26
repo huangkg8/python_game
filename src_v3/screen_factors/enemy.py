@@ -5,9 +5,16 @@ from pygame.sprite import Sprite
 class Enemy(Sprite):
 	def __init__(self,sett,life,speed,time_limit):
 		super().__init__()
+		self.image #snip
+		self.rect = self.image.get_rect()
+		self.screen_rect = screen.get_rect()
+
+		#存储小数形式的位置
+		self.x=float(self.rect.centerx)
+		self.y=float(self.rect.centery)
+
 		self.sett=sett
 
-		
 		self.life=life #生命值
 		self.speed=speed
 		self.shoot_dir=180
@@ -18,6 +25,7 @@ class Enemy(Sprite):
 		self.moving_left=False
 		self.moving_up=False
 		self.moving_down=False
+
 
 	def update(self):
 		"""移动或发射子弹"""
