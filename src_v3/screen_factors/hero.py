@@ -16,6 +16,8 @@ class Hero():
 		#初始位置（待改）
 		self.rect.centerx = self.screen_rect.centerx
 		self.rect.bottom = self.screen_rect.bottom
+		self.x=float(self.rect.centerx)
+		self.y=float(self.rect.centery)
 
 		self.life=sett.hero_life
 		self.speed=sett.hero_spped
@@ -32,28 +34,42 @@ class Hero():
 		self.moving_right = False
 		self.moving_left = False
 		self.moving_up=False  #攀爬
-		self.jumping=False  #跳跃	
-		self.falling=False  #自由落体（初速度为0）
+		self.jumporfall=False  #跳跃或下落	
+		self.jumpfallspeed=0  #在空中的竖直速度
+		self.jump_init_speed=sett.jump_init_speed #起跳时的竖直速度
 
 	def drawme(self):
 		"""在指定位置绘制hero"""
 		if self.plane:
-			pass
+			self.screen.blit(self.plane.image, self.rect)
 		else:
 			self.screen.blit(self.image, self.rect)
 
 	def update(self):
 		if not self.plane:
 			if self.moving_right:
-				self.rect.centerx += self.speed
-			elif self.moving_left:
-				self.rect.centerx -= self.speed
-			elif self.moving_up：
-				self.rect.centery -= self.speed
+				self.x += self.speed
+				self.rect.centerx=self.x
 
-			if self.jumping:
-				#改变centery即可，当落地或跳上飞机时把self.jumping改为False，当碰到上界时变为自由落体运动（初速度为0）
-				pass
+			elif self.moving_left:
+				self.x -= self.speed
+				self.rect.centerx=self.x
+
+			elif self.moving_up： #攀爬
+				self.y -= self.speed
+				self.rect.centery=self.y
+
+			if self.jumporfall:
+				self.y+=self.jumpfallspeed
+				self.jumpfallspeed+=self.sett.acc
+				self.rect.centery=self.y				
+				#碰到上界反弹
+				if self.rect.centery<=0:
+					self.jumpfallspeed = -self.jumpfallspeed
+				#落地后停止下落
+				elif self.rect.centery>=self.sett.groundy: 
+					self.jumporfall=False
+
 
 		else:
 			#判断是否超过驾驶时限
@@ -66,13 +82,17 @@ class Hero():
 					self.sett.game_active=False
 			else:
 				if self.plane.moving_right:
-					self.plane.rect.centerx += self.plane.speed
+					self.plane.x += self.plane.speed
+					self.plane.rect.centerx =self.plane.x
 				elif self.plane.moving_left:
-					self.plane.rect.centerx -= self.plane.speed
+					self.plane.x -= self.plane.speed
+					self.plane.rect.centerx =self.plane.x
 				elif self.plane.moving_up：
-					self.plane.rect.centery -= self.plane.speed
+					self.plane.y -= self.plane.speed
+					self.plane.rect.centery =self.plane.y
 				elif self.plane.moving_down:
-					self.plane.rect.centery += self.plane.speed
+					self.plane.y += self.plane.speed
+					self.plane.rect.centery = self.plane.y
 
 				#让hero.rect的位置与hero.plane.rect的位置保持一致
-				self.rect.centerx,self.rect.centery=self.plane.rect.centerx,self.plane.rect.centery
+				self.rect.centerx, self.rect.centery = self.plane.rect.centerx, self.plane.rect.centery
